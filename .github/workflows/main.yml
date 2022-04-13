@@ -34,6 +34,7 @@ jobs:
         env:
           CONTEXT_TO_USE: build-deploy
           TARGET_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
         with:
           script: |
             let test = await github.rest.actions.listWorkflowRuns({
