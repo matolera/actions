@@ -34,6 +34,14 @@ jobs:
 
             console.log(create)
 
+      - name: test2
+        id: test2
+        uses: actions/github-script@v5
+        env:
+          CONTEXT_TO_USE: build-deploy
+          TARGET_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          script: |
             let test = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
