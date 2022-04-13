@@ -15,9 +15,10 @@ jobs:
         env:
           CONTEXT_TO_USE: build-deploy
           TARGET_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
         with:
           script: |
-            let create = await github.rest.actions.createWorkflowDispatch({
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'main2.yml',
@@ -26,8 +27,6 @@ jobs:
                 solution_name: 'test'
               }
             })
-
-            console.log(create)
 
       - name: test2
         id: test2
@@ -45,5 +44,7 @@ jobs:
             })
 
             console.log(test.data.total_count)
-            console.log(test.data.workflow_runs[0].status)
-            console.log(test.data.workflow_runs[0].conclusion)
+            if (test.data.total_count != 0) {
+              console.log(test.data.workflow_runs[0].status)
+              console.log(test.data.workflow_runs[0].conclusion)
+            }
