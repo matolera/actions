@@ -30,5 +30,7 @@ jobs:
             })
 
             console.log(test.data.total_count)
-            console.log(test.data.workflow_runs[0].status)
-            console.log(test.data.workflow_runs[0].conclusion)
+            if (test.data.total_count != 0) {
+              console.log(test.data.workflow_runs[0].status)
+              console.log(test.data.workflow_runs[0].conclusion)
+            }
