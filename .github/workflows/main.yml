@@ -24,4 +24,5 @@ jobs:
               per_page: 1
             })
 
+            console.log(test.data.total_count)
             console.log(test.data.workflow_runs[0].status)
