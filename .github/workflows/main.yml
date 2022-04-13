@@ -17,10 +17,7 @@ jobs:
           TARGET_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         with:
           script: |
-            console.log(process.env.CONTEXT_TO_USE)
-            console.log(process.env.TARGET_URL)
-
-            let test = await github.rest.actions.getWorkflow({
+            let test = await github.rest.actions.getWorkflowUsage({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'main.yml'
