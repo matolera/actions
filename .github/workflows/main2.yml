@@ -1,7 +1,12 @@
-name: main
+name: main2
 
 on:
   workflow_dispatch:
+    inputs:
+      solution_name:
+        description: "name of the Solution in Dataverse environment"
+        required: true
+        default: MicaSolution
 
 jobs:
   build:
@@ -9,26 +14,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: test
-        id: test
-        uses: actions/github-script@v5
-        env:
-          CONTEXT_TO_USE: build-deploy
-          TARGET_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        with:
-          script: |
-            let create = await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'main2.yml',
-              ref: '${{ github.ref }}',
-              inputs: {
-                solution_name: 'test'
-              }
-            })
-
-            console.log(create)
-
       - name: test2
         id: test2
         uses: actions/github-script@v5
