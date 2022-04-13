@@ -7,7 +7,7 @@ on:
         description: "name of the Solution in Dataverse environment"
         required: true
         default: MicaSolution
-        
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
           TARGET_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         with:
           script: |
-            await github.rest.actions.createWorkflowDispatch({
+            let create = await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'main.yml',
@@ -31,6 +31,8 @@ jobs:
                 solution_name: '${{ github.event.inputs.solution_name }}'
               }
             })
+
+            console.log(create)
 
             let test = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
